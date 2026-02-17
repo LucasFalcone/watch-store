@@ -13,6 +13,7 @@ const reviewRoutes = require("./routes/reviewRoutes");
 
 
 
+
 app.use(cors());
 app.use(express.json());
 app.use("/auth", authRoutes);
@@ -22,6 +23,12 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.post("/webhook", async (req, res) => {
+  console.log("Webhook recibido:", req.body);
+
+  res.sendStatus(200);
+});
+
 
 mongoose.connect("mongodb://127.0.0.1:27017/watchstore")
   .then(() => console.log("Mongo conectado 🚀"))
