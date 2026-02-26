@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -9,6 +10,7 @@ const app = express();
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+
 
 
 
@@ -30,10 +32,9 @@ app.post("/webhook", async (req, res) => {
 });
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/watchstore")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Mongo conectado 🚀"))
-  .catch(err => console.log(err));
-
+  .catch(err => console.log("Error Mongo:", err));
 
 
 app.get("/", (req, res) => {
